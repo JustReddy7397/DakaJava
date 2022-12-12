@@ -18,8 +18,9 @@ import org.javacord.api.listener.interaction.ButtonClickListener;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimerTask;
 
-public class GiveawayTask implements Runnable, ButtonClickListener {
+public class GiveawayTask extends TimerTask implements ButtonClickListener {
 
     private final DiscordApi api;
 
@@ -30,6 +31,7 @@ public class GiveawayTask implements Runnable, ButtonClickListener {
 
     @Override
     public void run() {
+
         List<Giveaway> giveaways = Main.getStorage().getActiveGiveaways();
         for (Giveaway giveaway : giveaways) {
             if (giveaway.isEnded()) continue;
@@ -97,15 +99,6 @@ public class GiveawayTask implements Runnable, ButtonClickListener {
             giveaway.setEnded(true);
             Main.getStorage().updateGiveaway(giveaway.getGuildId(), giveaway.getMessageId(), giveaway);
         }
-
-        synchronized (this) {
-            try {
-                wait(5000);
-            }catch (InterruptedException exception) {
-                exception.printStackTrace();
-            }
-        }
-        run();
     }
 
 

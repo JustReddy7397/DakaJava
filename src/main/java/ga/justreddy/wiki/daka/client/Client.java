@@ -6,12 +6,13 @@ import ga.justreddy.wiki.daka.data.Giveaway;
 import ga.justreddy.wiki.daka.tasks.GiveawayTask;
 import ga.justreddy.wiki.daka.tasks.ReminderTask;
 
+import java.util.Timer;
 import java.util.logging.Level;
 
 public class Client extends DiscordClient {
 
-    private Thread remindersThread;
-    private Thread giveawayThread;
+    private Timer remindersTimer;
+    private Timer giveawayTimer;
 
     private CommandManager commandManager;
 
@@ -23,17 +24,18 @@ public class Client extends DiscordClient {
     @Override
     public void onEnable() {
         commandManager = new CommandManager();
-        remindersThread = new Thread(new ReminderTask());
-        remindersThread.start();
-        GiveawayTask task = new GiveawayTask(getApi());
-        giveawayThread = new Thread(task);
-        giveawayThread.start();
+        remindersTimer = new Timer();
+        remindersTimer.schedule(new ReminderTask(), 0, 5000);
+        GiveawayTask giveawayTask = new GiveawayTask(getApi());
+        giveawayTimer = new Timer();
+        giveawayTimer.schedule(giveawayTask, 0, 5000);
    }
 
     @Override
     public void onDisable() {
         commandManager.getCommands().clear();
-        remindersThread.interrupt();
+        remindersTimer.cancel();
+        giveawayTimer.cancel();
         getLogger().log(Level.INFO, "[SYSTEM] Logged out.");
     }
 

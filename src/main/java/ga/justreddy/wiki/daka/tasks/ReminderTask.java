@@ -8,8 +8,9 @@ import org.javacord.api.entity.server.Server;
 import org.javacord.api.entity.user.User;
 
 import java.awt.*;
+import java.util.TimerTask;
 
-public class ReminderTask implements Runnable {
+public class ReminderTask extends TimerTask {
 
     @Override
     public void run() {
@@ -32,13 +33,6 @@ public class ReminderTask implements Runnable {
             channel.sendMessage(builder);
             Main.getStorage().removeReminder(reminder);
         }
-        synchronized (this) {
-            try {
-                wait(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        run();
+
     }
 }

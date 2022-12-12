@@ -1,6 +1,7 @@
 package ga.justreddy.wiki.daka.command;
 
 import ga.justreddy.wiki.daka.Main;
+import ga.justreddy.wiki.daka.command.commands.giveaways.GEndCommand;
 import ga.justreddy.wiki.daka.command.commands.giveaways.GStartCommand;
 import ga.justreddy.wiki.daka.command.commands.misc.HelpCommand;
 import ga.justreddy.wiki.daka.command.commands.moderation.BanCommand;
@@ -30,7 +31,8 @@ public class CommandManager implements SlashCommandCreateListener {
                 new HistoryCommand(),
                 new HelpCommand(),
                 new RemindMeCommand(),
-                new GStartCommand()
+                new GStartCommand(),
+                new GEndCommand()
         );
     }
 

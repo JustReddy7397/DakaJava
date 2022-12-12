@@ -38,7 +38,9 @@ public class HelpCommand extends Command {
                 .setColor(Color.GREEN)
                 .setFooter(Main.getRandomGoodResponse())
                 .addField(":slight_smile: Misc", "/help misc", true)
-                .addField(":hammer: Moderation", "/help moderation", true);
+                .addField(":hammer: Moderation", "/help moderation", true)
+                .addField(":reminders_ribbon: Reminders", "/help reminder", true)
+                .addField(":tada: Gveaways", "/help giveaways", true);
         if (type == null) {
             interaction.createImmediateResponder()
                     .addEmbed(helpEmbed)
@@ -48,6 +50,8 @@ public class HelpCommand extends Command {
 
         final StringBuilder miscBuilder = new StringBuilder(":slight_smile: **Misc**\n");
         final StringBuilder moderationBuilder = new StringBuilder(":hammer: **Moderation**\n");
+        final StringBuilder remindeBuilder = new StringBuilder("reminders_ribbon: **Reminder**\n");
+        final StringBuilder
 
         Main.getClient().getCommandManager().getCommands().forEach(command -> {
 
@@ -66,6 +70,16 @@ public class HelpCommand extends Command {
                 }
 
                 moderationBuilder.append("/").append(command.getName()).append(" - ").append(command.getDescription()).append("\n");
+
+            }
+
+            if (command.getCategory().equals("reminders")) {
+                if (command.getPermission() != null) {
+                    if (!server.hasPermission(user, command.getPermission())) return;
+                }
+
+                remindeBuilder.append("/").append(command.getName()).append(" - ").append(command.getDescription()).append("\n");
+
 
             }
 
