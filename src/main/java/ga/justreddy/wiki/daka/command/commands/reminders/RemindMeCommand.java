@@ -35,6 +35,7 @@ public class RemindMeCommand extends Command {
 
     @Override
     public void onCommand(Server server, User user, Interaction interaction, List<SlashCommandInteractionOption> options) {
+        if (server == null) return;
         long ms = Utils.getDurationMS(options.get(0).getStringValue().orElse("0s"));
         if (ms == 0) {
             interaction.createImmediateResponder()

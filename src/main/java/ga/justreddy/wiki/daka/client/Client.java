@@ -3,6 +3,7 @@ package ga.justreddy.wiki.daka.client;
 import ga.justreddy.wiki.daka.Main;
 import ga.justreddy.wiki.daka.command.CommandManager;
 import ga.justreddy.wiki.daka.data.Giveaway;
+import ga.justreddy.wiki.daka.logger.DiscordLogger;
 import ga.justreddy.wiki.daka.tasks.GiveawayTask;
 import ga.justreddy.wiki.daka.tasks.ReminderTask;
 
@@ -29,6 +30,7 @@ public class Client extends DiscordClient {
         GiveawayTask giveawayTask = new GiveawayTask(getApi());
         giveawayTimer = new Timer();
         giveawayTimer.schedule(giveawayTask, 0, 5000);
+        new DiscordLogger().start(getApi());
    }
 
     @Override

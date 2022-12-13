@@ -39,8 +39,8 @@ public class HelpCommand extends Command {
                 .setFooter(Main.getRandomGoodResponse())
                 .addField(":slight_smile: Misc", "/help misc", true)
                 .addField(":hammer: Moderation", "/help moderation", true)
-                .addField(":reminders_ribbon: Reminders", "/help reminder", true)
-                .addField(":tada: Gveaways", "/help giveaways", true);
+                .addField(":reminder_ribbon: Reminders", "/help reminder", true)
+                .addField(":tada: Gveaways", "/help giveaway", true);
         if (type == null) {
             interaction.createImmediateResponder()
                     .addEmbed(helpEmbed)
@@ -50,8 +50,8 @@ public class HelpCommand extends Command {
 
         final StringBuilder miscBuilder = new StringBuilder(":slight_smile: **Misc**\n");
         final StringBuilder moderationBuilder = new StringBuilder(":hammer: **Moderation**\n");
-        final StringBuilder remindeBuilder = new StringBuilder("reminders_ribbon: **Reminder**\n");
-        final StringBuilder
+        final StringBuilder reminderBuilder = new StringBuilder(":reminder_ribbon: **Reminder**\n");
+        final StringBuilder giveawayBuilder = new StringBuilder(":tada: **Giveaway**");
 
         Main.getClient().getCommandManager().getCommands().forEach(command -> {
 
@@ -78,7 +78,17 @@ public class HelpCommand extends Command {
                     if (!server.hasPermission(user, command.getPermission())) return;
                 }
 
-                remindeBuilder.append("/").append(command.getName()).append(" - ").append(command.getDescription()).append("\n");
+                reminderBuilder.append("/").append(command.getName()).append(" - ").append(command.getDescription()).append("\n");
+
+
+            }
+
+            if (command.getCategory().equals("giveaways")) {
+                if (command.getPermission() != null) {
+                    if (!server.hasPermission(user, command.getPermission())) return;
+                }
+
+                giveawayBuilder.append("/").append(command.getName()).append(" - ").append(command.getDescription()).append("\n");
 
 
             }
@@ -120,6 +130,12 @@ public class HelpCommand extends Command {
         } else if (finalType.equalsIgnoreCase("moderation")) {
             categoryEmbed.setTitle("Moderation Help Menu");
             categoryEmbed.setDescription(moderationBuilder.toString());
+        }else if (finalType.equals("reminder")) {
+            categoryEmbed.setTitle("Reminder Help Menu");
+            categoryEmbed.setDescription(reminderBuilder.toString());
+        } else if (finalType.equals("giveaway")) {
+            categoryEmbed.setTitle("Giveaway Help Menu");
+            categoryEmbed.setDescription(giveawayBuilder.toString());
         } else {
             interaction.createImmediateResponder().addEmbed(helpEmbed).respond();
             return;

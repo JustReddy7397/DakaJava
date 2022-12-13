@@ -41,6 +41,7 @@ public class CommandManager implements SlashCommandCreateListener {
         Command command = getById(event.getSlashCommandInteraction().getCommandId());
         if (command == null) return;
         if (event.getInteraction().getServer().isEmpty()) return;
+        if (event.getInteraction().getChannel().isEmpty()) return;
         final Server server = event.getInteraction().getServer().get();
         final User user = event.getInteraction().getUser();
         if (command.getPermission() != null && !server.hasPermission(user, command.getPermission())) {

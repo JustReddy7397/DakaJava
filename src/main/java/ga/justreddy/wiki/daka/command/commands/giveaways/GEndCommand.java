@@ -10,10 +10,12 @@ import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.entity.permission.PermissionType;
 import org.javacord.api.entity.server.Server;
 import org.javacord.api.entity.user.User;
+import org.javacord.api.exception.UnknownMessageException;
 import org.javacord.api.interaction.Interaction;
 import org.javacord.api.interaction.SlashCommandInteractionOption;
 import org.javacord.api.interaction.SlashCommandOptionBuilder;
 import org.javacord.api.interaction.SlashCommandOptionType;
+import org.javacord.api.util.logging.ExceptionLogger;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -36,11 +38,16 @@ public class GEndCommand extends Command {
         try {
             messageId = Long.parseLong(options.get(0).getStringValue().orElse("0"));
         } catch (NumberFormatException exception) {
-            
+
         }
         TextChannel channel = interaction.getChannel().orElse(null);
         if (channel == null) return;
-        Message message = channel.getMessageById(messageId).join();
+        Message message = null;
+        try {
+             message = channel.getMessageById(messageId).join();
+        }catch (Exception ignored) {
+
+        }
         if (message == null) {
             interaction.createImmediateResponder()
                     .addEmbed(
