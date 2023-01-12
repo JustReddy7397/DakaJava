@@ -4,7 +4,9 @@ import ga.justreddy.wiki.daka.command.CommandManager;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.Javacord;
+import org.javacord.api.entity.activity.ActivityType;
 
+import java.net.Proxy;
 import java.util.jar.JarEntry;
 import java.util.logging.Logger;
 
@@ -18,6 +20,7 @@ public abstract class DiscordClient {
                 .setAllIntents()
                 .login()
                 .join();
+        api.updateActivity(ActivityType.WATCHING, "Reddy");
 
         
     }

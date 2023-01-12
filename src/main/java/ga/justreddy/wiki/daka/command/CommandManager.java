@@ -7,6 +7,7 @@ import ga.justreddy.wiki.daka.command.commands.misc.HelpCommand;
 import ga.justreddy.wiki.daka.command.commands.moderation.BanCommand;
 import ga.justreddy.wiki.daka.command.commands.moderation.HistoryCommand;
 import ga.justreddy.wiki.daka.command.commands.reminders.RemindMeCommand;
+import ga.justreddy.wiki.daka.command.commands.tickets.TicketCommand;
 import org.javacord.api.entity.message.MessageFlag;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.entity.server.Server;
@@ -32,7 +33,8 @@ public class CommandManager implements SlashCommandCreateListener {
                 new HelpCommand(),
                 new RemindMeCommand(),
                 new GStartCommand(),
-                new GEndCommand()
+                new GEndCommand(),
+                new TicketCommand()
         );
     }
 
